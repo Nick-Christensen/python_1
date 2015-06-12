@@ -1,0 +1,74 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Jun 05 14:50:54 2015
+
+@author: NPC965
+"""
+
+import random # NOT from random import *
+
+#==============================================================================
+# create 2 dictionaries of possible choices, because despite what the profs want, 
+# I don't actually like screwing around with a bunch of if/elif/else statements
+#==============================================================================
+
+name2num_choices = {'rock': 0
+, 'Spock': 1
+, 'paper': 2
+, 'lizard': 3
+, 'scissors': 4
+}
+
+num2name_choices = {0: 'rock'
+, 1: 'Spock'
+, 2: 'paper'
+, 3: 'lizard'
+, 4: 'scissors'
+}
+
+def name_to_number(name):
+    error_msg = "Sorry, not a valid play for RPSLS. Please try again and choose from the list."
+    if name in name2num_choices.keys():
+        number = name2num_choices[name]
+        return number
+    else:
+        return error_msg
+
+def number_to_name(x):
+    error_msg = "Sorry, computer made an invalid play."
+    if x in num2name_choices.keys():
+        name = num2name_choices[x]
+        return name
+    else:
+        return error_msg        
+
+#Below is the main function for this program, which (for now) just simulates play.
+
+def rpsls(player_choice):
+    if player_choice in name2num_choices.keys():
+        print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        print "Yeah! Rock-Paper-Scissors-Lizard-Spock! You're on!"
+        print ""
+        print "You have chosen...%s." % player_choice.upper()
+        print ""
+        player_val = name_to_number(player_choice)
+        comp_val = random.randrange(0, len(num2name_choices))
+        print "Computer makes the choice of...%s." % number_to_name(comp_val).upper()
+        print ""
+        if player_val == comp_val:
+            print "A tie!"    
+        elif comp_val == ((player_val - 1) % 5) or comp_val == ((player_val - 2) % 5):
+            print "You win! %s beats %s!" % (player_choice, number_to_name(comp_val))
+        else:
+            print "Wah-waaah, evil computer wins."
+    else:
+        print "Sorry, not a valid play for RPSLS. Please try again and choose from the list."
+        inp = raw_input("Enter your selection: ")
+        rpsls(inp)
+
+    #print player_val, comp_val  #for testing and eval  
+
+inp = raw_input("Enter your selection: ")
+rpsls(inp)
+        
+    
