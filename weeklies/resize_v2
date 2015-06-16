@@ -1,0 +1,52 @@
+# Resize a ball.
+# Week 3a, exercise 5
+# https://class.coursera.org/interactivepython1-003/wiki/view?page=practice_drawing
+
+###################################################
+# Student should add code where relevant to the following.
+
+import simplegui 
+
+# Define globals
+HEIGHT = 400
+WIDTH = 400
+RADIUS_INCREMENT = 10
+ball_radius = 20
+
+# Draw handler
+def draw(canvas):
+    canvas.draw_circle((200, 200), ball_radius, 10, "Red", "Green")
+
+# new draw handler, for radius errors:    
+def error_can(canvas):
+    canvas.draw_circle((200, 200), ball_radius, 10, "Red", "Green") #always continue drawing the circle
+    if ball_radius > RADIUS_INCREMENT: 
+        canvas.draw_text("", [70, 200], 35, "White")
+    else:
+        canvas.draw_text("Can't it go smaller!?!!?", [70, 200], 35, "White") #but if rad gets too small, write error to canvas instead of console!
+
+           
+# Event handlers for buttons
+def increase_radius():
+    global ball_radius
+    ball_radius = ball_radius + RADIUS_INCREMENT
+
+def decrease_radius():
+    global ball_radius
+    if ball_radius > RADIUS_INCREMENT:
+        ball_radius = ball_radius - RADIUS_INCREMENT   
+    else:
+        #print "Sorry, can't go no mo' smaller!"
+        frame.set_draw_handler(error_can) # instead of error msg above, now invoke error function, a new draw handler
+
+        
+# Create frame and assign callbacks to event handlers
+frame = simplegui.create_frame("Ball control", WIDTH, HEIGHT)
+frame.set_draw_handler(draw)
+frame.add_button("Increase radius",  increase_radius, 150)
+frame.add_button("Decrease radius", decrease_radius, 150)
+
+
+# Start the frame animation
+frame.start()
+
