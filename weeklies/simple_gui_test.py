@@ -1,4 +1,4 @@
-import simplegui ###### !!!!! probably only works at http://www.codeskulptor.org/
+import simpleguitk as simplegui ###### !!!!! probably only works at http://www.codeskulptor.org/
 
 # here is the event handler, namely two functions that manage click events depending on the state of variable 'x'
 
